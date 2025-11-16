@@ -20,5 +20,23 @@ namespace CarrinhoAlegre.Infra.ProdutoServices
             var produtos = await _uow.Produtos.GetAllAsync();
             return produtos;
         }
+
+        public async Task<Produto> InserirProduto(Produto request)
+        {
+           await _uow.Produtos.AddAsync(request);
+           await _uow.CommitAsync();
+
+           var produtos = await _uow.Produtos.GetAllAsync();
+           
+           var Produto = produtos.ToList().Last();
+
+            return Produto;
+        }
+
+        public async Task<Produto> ObterProdutoByIdAsync(Guid id)
+        {
+            var produto = await _uow.Produtos.GetByIdAsync(id);
+            return produto;
+        }
     }
 }

@@ -25,5 +25,36 @@ namespace CarrinhoAlegre.Api.Controllers
             else
                 return NotFound("Nenhum produto encontrado");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProduto([FromBody] Produto produto)
+        {
+            if (produto == null)
+            {
+                return BadRequest("Produto inválido.");
+            }
+
+            var novoProduto = await _produtoService.InserirProduto(produto);
+
+            return CreatedAtAction(nameof(GetProdutos), new { id = novoProduto.Id }, novoProduto);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProdutoById(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest("Id inválido.");
+            }
+
+            var produto = await _produtoService.ObterProdutoByIdAsync(id);
+
+            if(produto == null)
+            {
+               return NotFound("Produto não encontrado.");
+            }
+
+            return Ok(produto);
+        }
     }
 }
