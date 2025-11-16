@@ -36,7 +36,11 @@ namespace CarrinhoAlegre.Api.Controllers
 
             var novoProduto = await _produtoService.InserirProduto(produto);
 
-            return CreatedAtAction(nameof(GetProdutos), new { id = novoProduto.Id }, novoProduto);
+            return CreatedAtAction(
+                nameof(GetProdutoById), 
+                new { id = novoProduto.Id }, 
+                novoProduto                
+            );
         }
 
         [HttpGet("{id}")]

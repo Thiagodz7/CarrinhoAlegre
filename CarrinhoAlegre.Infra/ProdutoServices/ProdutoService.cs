@@ -23,14 +23,9 @@ namespace CarrinhoAlegre.Infra.ProdutoServices
 
         public async Task<Produto> InserirProduto(Produto request)
         {
-           await _uow.Produtos.AddAsync(request);
-           await _uow.CommitAsync();
-
-           var produtos = await _uow.Produtos.GetAllAsync();
-           
-           var Produto = produtos.ToList().Last();
-
-            return Produto;
+            await _uow.Produtos.AddAsync(request);
+            await _uow.CommitAsync();
+            return request;
         }
 
         public async Task<Produto> ObterProdutoByIdAsync(Guid id)
