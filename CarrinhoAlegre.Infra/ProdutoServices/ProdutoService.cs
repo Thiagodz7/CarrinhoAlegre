@@ -1,5 +1,6 @@
 ﻿using CarrinhoAlegre.Core.Models.Produtos;
 using CarrinhoAlegre.Infra.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarrinhoAlegre.Infra.ProdutoServices
 {
@@ -13,9 +14,8 @@ namespace CarrinhoAlegre.Infra.ProdutoServices
 
         public async Task<IEnumerable<Produto>> ObterProdutosAsync()
         {
-            var produtos = _context.Produtos.AsEnumerable();
-
-            return await Task.FromResult(produtos);
+            var produtos = await _context.Produtos.ToListAsync();
+            return produtos;
         }
     }
 }
