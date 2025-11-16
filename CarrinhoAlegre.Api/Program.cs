@@ -1,6 +1,8 @@
+using CarrinhoAlegre.Core.Interfaces;
 using CarrinhoAlegre.Core.Models.Produtos;
 using CarrinhoAlegre.Infra.Data;
 using CarrinhoAlegre.Infra.ProdutoServices;
+using CarrinhoAlegre.Infra.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
 
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
