@@ -10,11 +10,11 @@ namespace CarrinhoAlegre.Infra.Repository
         private readonly AppDbContext _context;
         public IProdutoRepository Produtos { get; private set; }
 
-        public UnitOfWork(AppDbContext context)
+        public UnitOfWork(AppDbContext context, IProdutoRepository produtoRepository)
         {
             _context = context;
 
-            Produtos = new ProdutoRepository(_context);
+            Produtos = produtoRepository;
         }
 
         public async Task<int> CommitAsync()

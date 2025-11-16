@@ -10,11 +10,9 @@ namespace CarrinhoAlegre.Infra.ProdutoServices
 {
     public class ProdutoService : IProdutoService
     {
-        private readonly IRepository<Produto> _repository;
         private readonly IUnitOfWork _uow;
-        public ProdutoService(IRepository<Produto> repository, IUnitOfWork uow)
+        public ProdutoService(IUnitOfWork uow)
         {
-            _repository = repository;
             _uow = uow;
         }
         public async Task<IEnumerable<Produto>> ObterProdutosAsync()
